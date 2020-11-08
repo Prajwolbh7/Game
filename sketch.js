@@ -7,15 +7,15 @@ let points = 0;
 let w = 600;
 let h = 600;
 let player;
-let coins = [ ];
+let coins = [];
 let playerImg;
 let coinImg;
-let click  = 0;
+let click = 0;
 
 function preload() {
 
-    playerImg = loadImage('images/run.jpg');
-    coinImg = loadImage('images/virus_0.jpg');
+  playerImg = loadImage('images/run.jpg');
+  coinImg = loadImage('images/virus_0.jpg');
 }
 
 
@@ -25,7 +25,7 @@ function setup() {
   textFont('monospace');
 
   player = new Player();
-   //coins[0] = new Coin();
+  //coins[0] = new Coin();
   coins.push(new Coin());
 
 }
@@ -73,7 +73,7 @@ function keyPressed() {
     player.direction = 'down'
   } else if (key = ' ') {
     player.direction = 'still';
-}
+  }
 }
 
 function title() {
@@ -100,7 +100,7 @@ function level1() {
 
 
 
-  if (random(1) <= 0.01){
+  if (random(1) <= 0.01) {
     /// this give new coins
     coins.push(new Coin());
   }
@@ -113,10 +113,10 @@ function level1() {
   //     coins[0].move();
 
 
-// this is moving all the random  multipile coins
-// iterating through coins array to display and move them
-// using for loop
-  for ( let i = 0; i < coins.length; i ++){
+  // this is moving all the random  multipile coins
+  // iterating through coins array to display and move them
+  // using for loop
+  for (let i = 0; i < coins.length; i++) {
 
     coins[i].display();
     coins[i].move();
@@ -132,17 +132,17 @@ function level1() {
   // check for collision, if there is colliion increase points by 1 and splice that coi out of array
   // need to iterate backward through array
 
-  for (let i = coins.length -1; i >= 0; i--){
+  for (let i = coins.length - 1; i >= 0; i--) {
 
-  if (dist(player.x, player.y, coins[i].x, coins[i].y) <= (player.r + coins[i].r) / 2) {
+    if (dist(player.x, player.y, coins[i].x, coins[i].y) <= (player.r + coins[i].r) / 2) {
 
-    points++;
-    coins.splice(i,1);
+      points++;
+      coins.splice(i, 1);
 
-  }else if (coins[i].y > h){
-    coins.splice(i,1);
+    } else if (coins[i].y > h) {
+      coins.splice(i, 1);
+    }
   }
-}
 
   // try this for maze effect !!
   push();
@@ -171,7 +171,7 @@ function level1() {
   rect(500, 500, w / 6, h / 6);
   rect(0, 500, w / 6, h / 6);
 
-// obstacle
+  // obstacle
 
   rect(380, 400, 10, 80);
   rect(340, 490, 80, 10);
@@ -185,8 +185,8 @@ function level1() {
   rect(570, 160, 90, 10);
 
   // target
-  fill(255,0,0);
-  ellipse(550,60,40,40);
+  fill(255, 0, 0);
+  ellipse(550, 60, 40, 40);
   pop();
 
   //text('points' + points , w/4, h - 30);
@@ -198,19 +198,14 @@ function level1() {
 }
 
 
- function level1MouseClicked() {
-       //points ++ ;
-       click ++;
-     console.log('points = ' + points);
+function level1MouseClicked() {
+  //points ++ ;
+  click++;
+  console.log('points = ' + points);
 
-   if (click >= 1){
-     state = 'you win';
+  if (click >= 1) {
+    state = 'you win';
   }
-   // if( player.x >= 550 $ player.y >= 60){
-   //   //text('you won', w/2, h/2);
-   // }
-// }
-
   // if( player.x >= 550 $ player.y >= 60){
   //   //text('you won', w/2, h/2);
   // }
