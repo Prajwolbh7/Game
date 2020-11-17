@@ -14,7 +14,7 @@ let click = 0;
 
 function preload() {
 
-  playerImg = loadImage('images/run.jpg');
+  playerImg = loadImage('images/ab.png');
   coinImg = loadImage('images/virus_0.jpg');
 }
 
@@ -42,6 +42,10 @@ function draw() {
       level1();
       cnv.mouseClicked(level1MouseClicked);
       break;
+      case 'level 2':
+      level2();
+      cnv.mouseClicked(level2MouseClicked);
+      break;
     case 'you win':
       youWin();
       cnv.mouseClicked(youWinMouseClicked);
@@ -50,6 +54,7 @@ function draw() {
       break;
 
   }
+
 
   //
   //   if(state === 'title'){
@@ -75,6 +80,10 @@ function keyPressed() {
     player.direction = 'still';
   }
 }
+function keyReleased (){
+  player.direction = 'still'
+}
+
 
 function title() {
   background(0);
@@ -97,6 +106,7 @@ function titleMouseClicked() {
 function level1() {
 
   background(50, 150, 200);
+
 
 
 
@@ -203,14 +213,27 @@ function level1MouseClicked() {
   click++;
   console.log('points = ' + points);
 
-  if (click >= 1) {
+  if (click == 1) {
     state = 'you win';
+  }else if (click == 2 ){
+    state = 'level 2';
   }
   // if( player.x >= 550 $ player.y >= 60){
   //   //text('you won', w/2, h/2);
   // }
 }
 
+
+function level2(){
+  background(0);
+}
+
+
+function level2MouseClicked(){
+
+  background(1,2,4);
+  text('level 2', w/2,h/3);
+}
 function youWin() {
 
   background(255, 50, 80);
