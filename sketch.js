@@ -15,7 +15,7 @@ let click = 0;
 function preload() {
 
   playerImg = loadImage('images/ab.png');
-  coinImg = loadImage('images/virus_0.jpg');
+  coinImg = loadImage('images/virus1.png');
 }
 
 
