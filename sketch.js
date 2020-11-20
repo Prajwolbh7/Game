@@ -9,7 +9,7 @@ var apiKey="&api_key=dc6zaTOxFJmzC";
 // my own apikey
 //var apikey ="&api_key=0NmKiskLvYUZG5nPGyPaPc8sXh2oCNmd";
 
-var query = "&q=rainbow";
+var query = "&q=covid";
 
 
 
