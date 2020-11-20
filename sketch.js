@@ -1,6 +1,18 @@
 'use strict';
 
 
+
+var api = "https://api.giphy.com/v1/gifs/search?";
+
+var apiKey="&api_key=dc6zaTOxFJmzC";
+
+// my own apikey
+//var apikey ="&api_key=0NmKiskLvYUZG5nPGyPaPc8sXh2oCNmd";
+
+var query = "&q=rainbow";
+
+
+
 let state = 'title'
 let cnv;
 let points = 0;
@@ -22,12 +34,23 @@ function preload() {
 function setup() {
   cnv = createCanvas(w, h);
 
+// this is for the giphy
+  var url = api + apiKey + query;
+ loadJSON(url, gotData); // to loade the data for giphy
+
   textFont('monospace');
 
   player = new Player();
   //coins[0] = new Coin();
   coins.push(new Coin());
 
+}
+
+
+function gotData(giphy){
+  for(var i =0; i<giphy.data.length; i++){
+  createImg(giphy.data[i].images.original.url);
+}
 }
 
 function draw() {
