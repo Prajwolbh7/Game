@@ -1,15 +1,25 @@
 'use strict';
 
 
-
+// all for the giphy
 var api = "https://api.giphy.com/v1/gifs/search?";
 
-var apiKey="&api_key=dc6zaTOxFJmzC";
+var apiKey = "&api_key=dc6zaTOxFJmzC";
 
 // my own apikey
 //var apikey ="&api_key=0NmKiskLvYUZG5nPGyPaPc8sXh2oCNmd";
 
 var query = "&q=covid";
+// all for the gify
+
+
+//all for the posenet
+
+let video;
+let poseNet; //variable
+let pose;
+//all for the poseNet
+
 
 
 
@@ -34,9 +44,18 @@ function preload() {
 function setup() {
   cnv = createCanvas(w, h);
 
-// this is for the giphy
+  // this is for the giphy
   var url = api + apiKey + query;
- loadJSON(url, gotData); // to loade the data for giphy
+  loadJSON(url, gotData); // to loade the data for giphy
+
+
+
+  // for pose poseNet
+  video = createCapture(VIDEO);
+  video.hide();
+  poseNet = ml5.poseNet(video, modelLoaded);
+  poseNet.on('pose', gotPoses);
+  // for poseNet
 
   textFont('monospace');
 
@@ -47,11 +66,26 @@ function setup() {
 }
 
 
-function gotData(giphy){
-  for(var i =0; i<giphy.data.length; i++){
-  createImg(giphy.data[i].images.original.url);
+function gotData(giphy) {
+  for (var i = 0; i < giphy.data.length; i++) {
+    createImg(giphy.data[i].images.original.url);
+  }
 }
+
+// for pose net
+function gotPoses(poses) {
+  console.log(poses);
+  if (poses.length > 0) {
+    pose = poses[0].pose;
+  }
 }
+
+function modelLoaded() {
+  console.log('poseNet ready');
+}
+
+//for poseNet
+
 
 function draw() {
 
@@ -65,7 +99,7 @@ function draw() {
       level1();
       cnv.mouseClicked(level1MouseClicked);
       break;
-      case 'level 2':
+    case 'level 2':
       level2();
       cnv.mouseClicked(level2MouseClicked);
       break;
@@ -87,6 +121,10 @@ function draw() {
   //     level1();
   //     cnv.mouseClicked(level1MouseClicked);
   // }
+
+
+
+
 }
 
 function keyPressed() {
@@ -103,7 +141,8 @@ function keyPressed() {
     player.direction = 'still';
   }
 }
-function keyReleased (){
+
+function keyReleased() {
   player.direction = 'still'
 }
 
@@ -218,6 +257,7 @@ function level1() {
   rect(570, 160, 90, 10);
 
   // target
+
   fill(255, 0, 0);
   ellipse(550, 60, 40, 40);
   pop();
@@ -238,34 +278,61 @@ function level1MouseClicked() {
 
   if (click == 1) {
     state = 'you win';
-  }else if (click == 2 ){
+  } else if (click == 2) {
     state = 'level 2';
   }
-  // if( player.x >= 550 $ player.y >= 60){
-  //   //text('you won', w/2, h/2);
-  // }
+
 }
 
 
-function level2(){
+function level2() {
   background(0);
 }
 
 
-function level2MouseClicked(){
+function level2MouseClicked() {
 
-  background(1,2,4);
-  text('level 2', w/2,h/3);
+  background(1, 2, 4);
+  text('level 2', w / 2, h / 3);
 }
+
 function youWin() {
 
   background(255, 50, 80);
-  textSize(50);
-  stroke(255);
-  text('You Win', w / 2, h / 3);
+
 
   // textSize(20);
   // text('click anywhere to restart', w / 2, h / 2);
+
+
+  // for pose poseNet
+  image(video, 0, 0);
+
+
+  if (pose) {
+
+    let eyeR = pose.rightEye;
+    let eyeL = pose.leftEye;
+    let d = dist(eyeR.x, eyeR.y, eyeL.x, eyeL.y); // to check the distance and make it go larger ot smaller .
+    fill(255, 0, 0);
+    ellipse(pose.nose.x, pose.nose.y, d);
+    ellipse(pose.leftEye.x, pose.leftEye.y, d);
+    ellipse(pose.rightEye.x, pose.rightEye.y, d);
+    push();
+    textSize(20);
+    textAlign(CENTER);
+    fill(0);
+    text('You Tested', pose.leftEye.x, pose.leftEye.y);
+    text('Cogratulations !!!!!', pose.rightEye.x, pose.rightEye.y);
+    text('Negative ', pose.nose.x, pose.nose.y);
+    fill(255);
+    textSize(50);
+    stroke(255);
+    text('You Are Safe', 300, 100);
+    pop();
+  }
+
+  //for poseNet
 
 
 }
