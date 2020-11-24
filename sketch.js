@@ -99,10 +99,13 @@ function draw() {
       level1();
       cnv.mouseClicked(level1MouseClicked);
       break;
-    case 'level 2':
-      level2();
-      cnv.mouseClicked(level2MouseClicked);
-      break;
+
+      // maybe make level 2 as well
+    // case 'level 2':
+    //   level2();
+    //   cnv.mouseClicked(level2MouseClicked);
+    //   break;
+
     case 'you win':
       youWin();
       cnv.mouseClicked(youWinMouseClicked);
@@ -139,8 +142,14 @@ function keyPressed() {
     player.direction = 'down'
   } else if (key = ' ') {
     player.direction = 'still';
-  }
+
+  //  TRY ADDING RETURN KEY
+// }else if (keyCode === RETURN ) {
+//       state = 'you win';
+// }
 }
+}
+
 
 function keyReleased() {
   player.direction = 'still'
@@ -277,9 +286,12 @@ function level1MouseClicked() {
 
   if (click == 1) {
     state = 'you win';
-  } else if (click == 2) {
-    state = 'level 2';
   }
+
+//  just try for level2
+  // } else if (click == 2) {
+  //   state = 'level 2';
+  // }
 
 }
 
