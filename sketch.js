@@ -1,16 +1,16 @@
 'use strict';
 
-
-// all for the giphy
-var api = "https://api.giphy.com/v1/gifs/search?";
-
-var apiKey = "&api_key=dc6zaTOxFJmzC";
-
-// my own apikey
-//var apikey ="&api_key=0NmKiskLvYUZG5nPGyPaPc8sXh2oCNmd";
-
-var query = "&q=covid";
-// all for the gify
+//
+// // all for the giphy
+// var api = "https://api.giphy.com/v1/gifs/search?";
+//
+// var apiKey = "&api_key=dc6zaTOxFJmzC";
+//
+// // my own apikey
+// //var apikey ="&api_key=0NmKiskLvYUZG5nPGyPaPc8sXh2oCNmd";
+//
+// var query = "&q=covid";
+// // all for the gify
 
 
 //all for the posenet
@@ -44,10 +44,10 @@ function preload() {
 function setup() {
   cnv = createCanvas(w, h);
 
-  // this is for the giphy
-  var url = api + apiKey + query;
-  loadJSON(url, gotData); // to loade the data for giphy
-
+  // // this is for the giphy
+  // var url = api + apiKey + query;
+  // loadJSON(url, gotData); // to loade the data for giphy
+  //
 
 
   // for pose poseNet
@@ -152,8 +152,7 @@ function title() {
   textSize(50);
   stroke(255);
   textAlign(CENTER);
-  text('MY GAME', w / 2, h / 5);
-
+  text('lil mAzE', w / 2, h / 5);
   textSize(20);
   text('click anywhere to start', w / 2, h / 2);
 }
@@ -245,7 +244,7 @@ function level1() {
 
   // obstacle
 
-  rect(380, 400, 10, 80);
+  rect(330, 450, 80, 10);
   rect(340, 490, 80, 10);
   rect(310, 340, 10, 80);
   rect(220, 340, 80, 10);
