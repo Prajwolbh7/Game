@@ -36,7 +36,7 @@ let click = 0;
 
 function preload() {
 
-  playerImg = loadImage('images/ab.png');
+  playerImg = loadImage('images/tryout2.png');
   coinImg = loadImage('images/virus1.png');
 }
 
@@ -212,7 +212,17 @@ function level1() {
   // check for collision, if there is colliion increase points by 1 and splice that coi out of array
   // need to iterate backward through array
 
+
+// test for collision for red button
+
+if (dist(player.x, player.y,550 ,60 ) <= (player.r + 40) / 2) {
+ state = 'you win';
+// fill(255, 0, 0);
+// ellipse(550, 60, 40, 40);
+}
+
   for (let i = coins.length - 1; i >= 0; i--) {
+
 
     if (dist(player.x, player.y, coins[i].x, coins[i].y) <= (player.r + coins[i].r) / 2) {
 
@@ -265,7 +275,6 @@ function level1() {
   rect(570, 160, 90, 10);
 
   // target
-
   fill(255, 0, 0);
   ellipse(550, 60, 40, 40);
   pop();
@@ -284,7 +293,9 @@ function level1MouseClicked() {
   click++;
   console.log('points = ' + points);
 
-  if (click == 1) {
+
+//try making the clicks as the trigging points
+  if (click === 3) {
     state = 'you win';
   }
 
