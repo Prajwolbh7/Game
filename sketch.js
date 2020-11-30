@@ -25,43 +25,64 @@ let pose;
 
 let state = 'title'
 let cnv;
-let points = 0;
+let points = 1;
+let lives = 3;
+
 let w = 600;
 let h = 600;
-let player;
+let player = 1;
 let coins = [];
 let playerImg;
 let coinImg;
+let enemies = [];
+let enemyImg;
 let click = 0;
 
 function preload() {
 
   playerImg = loadImage('images/tryout2.png');
   coinImg = loadImage('images/virus1.png');
+  enemyImg = loadImage('images/tryout.png');
 }
 
 
 function setup() {
   cnv = createCanvas(w, h);
+  //frameRate(40);
+
+
+  // EDIT FOR COLLIIDER BUT DID work
+  //imageMode(CENTER);
+  //rectMode(CENTER);
+
+  //create a reset button , undo this all if u dont need reset button
+  resetSketch();
+  var button = createButton ('reset');
+  button.mousePressed(resetSketch);
+
+
+
+
 
   // // this is for the giphy
   // var url = api + apiKey + query;
   // loadJSON(url, gotData); // to loade the data for giphy
   //
 
-
-  // for pose poseNet
-  video = createCapture(VIDEO);
-  video.hide();
-  poseNet = ml5.poseNet(video, modelLoaded);
-  poseNet.on('pose', gotPoses);
-  // for poseNet
-
-  textFont('monospace');
-
-  player = new Player();
-  //coins[0] = new Coin();
-  coins.push(new Coin());
+//// undo this if you dont need reset button
+  //
+  // // for pose poseNet
+  // video = createCapture(VIDEO);
+  // video.hide();
+  // poseNet = ml5.poseNet(video, modelLoaded);
+  // poseNet.on('pose', gotPoses);
+  // // for poseNet
+  //
+  // textFont('monospace');
+  //
+  // player = new Player();
+  // //coins[0] = new Coin();
+  // coins.push(new Coin());
 
 }
 
@@ -85,7 +106,36 @@ function modelLoaded() {
 }
 
 //for poseNet
+  function resetSketch(){
 
+    // // this is for the giphy
+    // var url = api + apiKey + query;
+    // loadJSON(url, gotData); // to loade the data for giphy
+    //
+
+    state = 'title'
+    points = 1;
+    coins = [];
+    enemies = [];
+
+    // for pose poseNet
+    video = createCapture(VIDEO);
+    video.hide();
+    poseNet = ml5.poseNet(video, modelLoaded);
+    poseNet.on('pose', gotPoses);
+    // for poseNet
+
+
+    textFont('monospace');
+
+    player = new Player();
+    //coins[0] = new Coin();
+    coins.push(new Coin());
+    enemies.push(new Enemy());
+
+
+
+  }
 
 function draw() {
 
@@ -100,11 +150,11 @@ function draw() {
       cnv.mouseClicked(level1MouseClicked);
       break;
 
-      // maybe make level 2 as well
-    // case 'level 2':
-    //   level2();
-    //   cnv.mouseClicked(level2MouseClicked);
-    //   break;
+      // maybe make you lose as well
+    case 'game over':
+      gameOver();
+      cnv.mouseClicked(gameOverMouseClicked);
+      break;
 
     case 'you win':
       youWin();
@@ -116,6 +166,8 @@ function draw() {
   }
 
 
+
+
   //
   //   if(state === 'title'){
   //     title();
@@ -125,10 +177,23 @@ function draw() {
   //     cnv.mouseClicked(level1MouseClicked);
   // }
 
-
-
+//image(playerImg, this.x, this.y, this.r, this.r);
+//rect(rect1X, rect1Y, rect1Width, rect1Height);
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+// undo this to go to player.direction
 
 function keyPressed() {
   // direction for the player
@@ -184,6 +249,10 @@ function level1() {
     /// this give new coins
     coins.push(new Coin());
   }
+  if (random(1) <= 0.002) {
+    /// this give new coins
+    enemies.push(new Enemy());
+  }
 
   player.display();
   player.move();
@@ -202,6 +271,21 @@ function level1() {
     coins[i].move();
   }
 
+
+  // // this is only if you want one coin
+  //     coins[0].display();
+  //     coins[0].move();
+
+
+  // this is moving all the random  multipile coins
+  // iterating through enemies array to display and move them
+  // using for loop
+  for (let i = 0; i < enemies.length; i++) {
+
+    enemies[i].display();
+    enemies[i].move();
+  }
+
   // // using foreach loop
   //
   //  coins.forEach(function (coin) {
@@ -215,22 +299,40 @@ function level1() {
 
 // test for collision for red button
 
-if (dist(player.x, player.y,550 ,60 ) <= (player.r + 40) / 2) {
+if (dist(player.x, player.y, 550 ,100 ) <= (player.r + 40) / 2) {
  state = 'you win';
 // fill(255, 0, 0);
 // ellipse(550, 60, 40, 40);
 }
 
+
+// checking for collision
+
+
   for (let i = coins.length - 1; i >= 0; i--) {
 
-
+// check for collison with the player
     if (dist(player.x, player.y, coins[i].x, coins[i].y) <= (player.r + coins[i].r) / 2) {
 
-      points++;
+      points--;
       coins.splice(i, 1);
 
     } else if (coins[i].y > h) {
       coins.splice(i, 1);
+    }
+  }
+// checking for collision for enemies
+
+  for (let i = enemies.length - 1; i >= 0; i--) {
+
+// check for collison with the player
+    if (dist(player.x, player.y, enemies[i].x, enemies[i].y) <= (player.r + enemies[i].r) / 2) {
+
+      points++;
+      enemies.splice(i, 1);
+
+    } else if (enemies[i].y > h) {
+      enemies.splice(i, 1);
     }
   }
 
@@ -263,59 +365,49 @@ if (dist(player.x, player.y,550 ,60 ) <= (player.r + 40) / 2) {
 
   // obstacle
 
+// 1st rec
+ rect(340, 490, 80, 10);
+ //2nd rec
   rect(330, 450, 80, 10);
-  rect(340, 490, 80, 10);
+  // 3 vert
   rect(310, 340, 10, 80);
+// 4 rec
   rect(220, 340, 80, 10);
   rect(200, 250, 10, 80);
+  //atach with the wall up top
   rect(150, 100, 10, 50);
+// top right rec
   rect(240, 200, 80, 10);
+// attache with the wall vert
   rect(480, 300, 10, 80);
   rect(510, 250, 20, 10);
   rect(570, 160, 90, 10);
 
   // target
   fill(255, 0, 0);
-  ellipse(550, 60, 40, 40);
+  ellipse(550, 100, 40, 40);
   pop();
 
   //text('points' + points , w/4, h - 30);
   fill(149, 217, 89);
   textSize(17);
-  text(`Infected level: ${points}`, w / 5, h - 30);
+  text(`Immunity level: ${points}`, w / 5, h - 30);
 
+  if(points >= 7){
+    state = 'you win';
+  }else if(points <= 0) {
+    state = 'game over';
+  }
 
 }
 
 
 function level1MouseClicked() {
-  //points ++ ;
-  click++;
+  points ++ ;
+  //click++;
   console.log('points = ' + points);
 
 
-//try making the clicks as the trigging points
-  if (click === 3) {
-    state = 'you win';
-  }
-
-//  just try for level2
-  // } else if (click == 2) {
-  //   state = 'level 2';
-  // }
-
-}
-
-
-function level2() {
-  background(0);
-}
-
-
-function level2MouseClicked() {
-
-  background(1, 2, 4);
-  text('level 2', w / 2, h / 3);
 }
 
 function youWin() {
@@ -361,7 +453,46 @@ function youWin() {
 
 function youWinMouseClicked() {
 
-  state = 'level 1';
+  state = 'title';
   click = 0;
+
+}
+
+function gameOver(){
+
+  background(255,0,0);
+  textSize(50);
+
+
+  if (lives >=  0) {
+
+    // display number lives to the screen
+    text(lives + ' lives left ', w/2 , h/2);
+    textSize (30);
+    text('click anywhere to play again', w/2, h*3/4);
+
+
+  }else {
+
+    text('Game Over ', w/2 , h/2);
+    textSize (30);
+    text('click anywhere to restart', w/2, h*3/4);
+
+
+
+  }
+
+
+}
+
+function gameOverMouseClicked() {
+
+  if (lives >= 0){ //this  means they have 0 lives going into it beacuse lifr was already taken away
+    lives--;
+  state = 'level 1';
+}else {
+  state = 'title';
+}
+  points = 1;
 
 }
