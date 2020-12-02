@@ -57,7 +57,7 @@ function setup() {
 
   //create a reset button , undo this all if u dont need reset button
   resetSketch();
-  var button = createButton ('reset');
+  var button = createButton('reset');
   button.mousePressed(resetSketch);
 
 
@@ -69,7 +69,7 @@ function setup() {
   // loadJSON(url, gotData); // to loade the data for giphy
   //
 
-//// undo this if you dont need reset button
+  //// undo this if you dont need reset button
   //
   // // for pose poseNet
   // video = createCapture(VIDEO);
@@ -106,36 +106,36 @@ function modelLoaded() {
 }
 
 //for poseNet
-  function resetSketch(){
+function resetSketch() {
 
-    // // this is for the giphy
-    // var url = api + apiKey + query;
-    // loadJSON(url, gotData); // to loade the data for giphy
-    //
+  // // this is for the giphy
+  // var url = api + apiKey + query;
+  // loadJSON(url, gotData); // to loade the data for giphy
+  //
 
-    state = 'title'
-    points = 1;
-    coins = [];
-    enemies = [];
+  state = 'title'
+  points = 1;
+  coins = [];
+  enemies = [];
 
-    // for pose poseNet
-    video = createCapture(VIDEO);
-    video.hide();
-    poseNet = ml5.poseNet(video, modelLoaded);
-    poseNet.on('pose', gotPoses);
-    // for poseNet
-
-
-    textFont('monospace');
-
-    player = new Player();
-    //coins[0] = new Coin();
-    coins.push(new Coin());
-    enemies.push(new Enemy());
+  // for pose poseNet
+  video = createCapture(VIDEO);
+  video.hide();
+  poseNet = ml5.poseNet(video, modelLoaded);
+  poseNet.on('pose', gotPoses);
+  // for poseNet
 
 
+  textFont('monospace');
 
-  }
+  player = new Player();
+  //coins[0] = new Coin();
+  coins.push(new Coin());
+  enemies.push(new Enemy());
+
+
+
+}
 
 function draw() {
 
@@ -177,13 +177,10 @@ function draw() {
   //     cnv.mouseClicked(level1MouseClicked);
   // }
 
-//image(playerImg, this.x, this.y, this.r, this.r);
-//rect(rect1X, rect1Y, rect1Width, rect1Height);
+  //image(playerImg, this.x, this.y, this.r, this.r);
+  //rect(rect1X, rect1Y, rect1Width, rect1Height);
 
 }
-
-
-
 
 
 
@@ -208,11 +205,11 @@ function keyPressed() {
   } else if (key = ' ') {
     player.direction = 'still';
 
-  //  TRY ADDING RETURN KEY
-// }else if (keyCode === RETURN ) {
-//       state = 'you win';
-// }
-}
+    //  TRY ADDING RETURN KEY
+    // }else if (keyCode === RETURN ) {
+    //       state = 'you win';
+    // }
+  }
 }
 
 
@@ -297,21 +294,21 @@ function level1() {
   // need to iterate backward through array
 
 
-// test for collision for red button
+  // test for collision for red button
 
-if (dist(player.x, player.y, 550 ,100 ) <= (player.r + 40) / 2) {
- state = 'you win';
-// fill(255, 0, 0);
-// ellipse(550, 60, 40, 40);
-}
+  if (dist(player.x, player.y, 550, 100) <= (player.r + 40) / 2) {
+    state = 'you win';
+    // fill(255, 0, 0);
+    // ellipse(550, 60, 40, 40);
+  }
 
 
-// checking for collision
+  // checking for collision
 
 
   for (let i = coins.length - 1; i >= 0; i--) {
 
-// check for collison with the player
+    // check for collison with the player
     if (dist(player.x, player.y, coins[i].x, coins[i].y) <= (player.r + coins[i].r) / 2) {
 
       points--;
@@ -321,11 +318,11 @@ if (dist(player.x, player.y, 550 ,100 ) <= (player.r + 40) / 2) {
       coins.splice(i, 1);
     }
   }
-// checking for collision for enemies
+  // checking for collision for enemies
 
   for (let i = enemies.length - 1; i >= 0; i--) {
 
-// check for collison with the player
+    // check for collison with the player
     if (dist(player.x, player.y, enemies[i].x, enemies[i].y) <= (player.r + enemies[i].r) / 2) {
 
       points++;
@@ -365,21 +362,34 @@ if (dist(player.x, player.y, 550 ,100 ) <= (player.r + 40) / 2) {
 
   // obstacle
 
-// 1st rec
- rect(340, 490, 80, 10);
- //2nd rec
+  // 1st rec. this is the first horitzontal rect in the game just above the player.
+
+  rect(340, 490, 80, 10);
+
+  //2nd rec. this is the second one just above the first rect.
   rect(330, 450, 80, 10);
-  // 3 vert
+
+  // 3 vert this is the vertical one just above second rect.
   rect(310, 340, 10, 80);
-// 4 rec
+
+
+  // 4 rec. This is horitzontal rect right nect to the 3rd veritcal rect.
   rect(220, 340, 80, 10);
   rect(200, 250, 10, 80);
-  //atach with the wall up top
-  rect(150, 100, 10, 50);
-// top right rec
+
+  // top right rec
   rect(240, 200, 80, 10);
-// attache with the wall vert
+
+  //atach with the wall up top. Vertical rect at the top
+  rect(150, 100, 10, 50);
+
+  // attache with the wall vert
+
+  // this is the vertical rect at the right side that is attach with the walls which is coming down.
+
   rect(480, 300, 10, 80);
+
+  // this is the small rect on the right side going up the red circle
   rect(510, 250, 20, 10);
   rect(570, 160, 90, 10);
 
@@ -393,9 +403,9 @@ if (dist(player.x, player.y, 550 ,100 ) <= (player.r + 40) / 2) {
   textSize(17);
   text(`Immunity level: ${points}`, w / 5, h - 30);
 
-  if(points >= 7){
+  if (points >= 7) {
     state = 'you win';
-  }else if(points <= 0) {
+  } else if (points <= 0) {
     state = 'game over';
   }
 
@@ -403,7 +413,7 @@ if (dist(player.x, player.y, 550 ,100 ) <= (player.r + 40) / 2) {
 
 
 function level1MouseClicked() {
-  points ++ ;
+  points++;
   //click++;
   console.log('points = ' + points);
 
@@ -458,25 +468,25 @@ function youWinMouseClicked() {
 
 }
 
-function gameOver(){
+function gameOver() {
 
-  background(255,0,0);
+  background(255, 0, 0);
   textSize(50);
 
 
-  if (lives >=  0) {
+  if (lives >= 0) {
 
     // display number lives to the screen
-    text(lives + ' lives left ', w/2 , h/2);
-    textSize (30);
-    text('click anywhere to play again', w/2, h*3/4);
+    text(lives + ' lives left ', w / 2, h / 2);
+    textSize(30);
+    text('click anywhere to play again', w / 2, h * 3 / 4);
 
 
-  }else {
+  } else {
 
-    text('Game Over ', w/2 , h/2);
-    textSize (30);
-    text('click anywhere to restart', w/2, h*3/4);
+    text('Game Over ', w / 2, h / 2);
+    textSize(30);
+    text('click anywhere to restart', w / 2, h * 3 / 4);
 
 
 
@@ -487,12 +497,12 @@ function gameOver(){
 
 function gameOverMouseClicked() {
 
-  if (lives >= 0){ //this  means they have 0 lives going into it beacuse lifr was already taken away
+  if (lives >= 0) { //this  means they have 0 lives going into it beacuse lifr was already taken away
     lives--;
-  state = 'level 1';
-}else {
-  state = 'title';
-}
+    state = 'level 1';
+  } else {
+    state = 'title';
+  }
   points = 1;
 
 }

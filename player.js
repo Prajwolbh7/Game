@@ -12,43 +12,21 @@ class Player {
     // rect(this.x, this.y, this.r, this.r);
   }
 
-//
-//   move() {
-//
-//     switch (this.direction) {
-//       case 'still':
-//         // dont move anything
-//         break;
-//       case 'up':
-//         // decrease y position
-//         if (this.y > 100){
-//         this.y = this.y - this.speed;
-//       }
-//         break;
-//       case 'down':
-//         // increase y position
-//         if(this.y < 500- this.r){
-//         this.y = this.y + this.speed;
-//       }
-//         break;
-//       // case 'right':
-//       //   // increasing x position
-//       //   if(this.x < 340){
-//       //     if(this.y < 490 || this.y > 500){
-//       //     }
-//       //   }else if ()
-//       //   else if (this.x < w -this.r){
-//       //   this.x = this.x + this.speed;
-//       // }
-//
-//
-//
-//
-//
-//     //  use this for normal
+
+
+/// I WAS TRYING TO USE THIS CODE FOR THE WALLS, USE THIS WHILE WHILE MAKING CHANGES LARK.
+/// I PUT SOME CODES IN RIGHT BOTTOM BUT DID NOT WORK
+
+
+
+
+
+
+
 //       case 'right':
 //         // increasing x position
-//         if (this.x > 340 - 80 && this.x < 340 + 80 && this.y > 490 - 10 && this.y < 490 +10){
+//         if (this.x > 340 - 80 && this.x
+//           < 340 + 80 && this.y > 490 - 10 && this.y < 490 +10){
 //
 //         //   this.x = this.x * -1;
 //         //   //this.speed = this.speed*-1;
@@ -80,6 +58,13 @@ class Player {
 // }
 
 
+
+
+
+
+
+//// I kept this code so that i doesn't move up, down , left meaning doesn't go beyond the walls.
+//  Lark you use the code above .
 
   move() {
 
