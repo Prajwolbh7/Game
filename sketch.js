@@ -396,7 +396,8 @@ function level1() {
 
   // target
   fill(255, 0, 0);
-  ellipse(550, 100, 40, 40);
+  text('YEAR 2021', 550,100);
+  //ellipse(550, 100, 40, 40);
   pop();
 
   //text('points' + points , w/4, h - 30);
