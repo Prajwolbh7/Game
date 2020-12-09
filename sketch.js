@@ -42,7 +42,7 @@ function preload() {
 
   playerImg = loadImage('images/tryout2.png');
   coinImg = loadImage('images/virus1.png');
-  enemyImg = loadImage('images/tryout.png');
+  enemyImg = loadImage('images/sy.png');
 }
 
 
@@ -237,7 +237,8 @@ function titleMouseClicked() {
 
 function level1() {
 
-  background(50, 150, 200);
+  //background(50, 150, 200);
+  background(65, 37, 77);
 
 
 
