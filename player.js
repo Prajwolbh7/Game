@@ -21,26 +21,25 @@ class Player {
 
 
 
-
-
+//
+//
 //       case 'right':
 //         // increasing x position
-//         if (this.x > 340 - 80 && this.x
-//           < 340 + 80 && this.y > 490 - 10 && this.y < 490 +10){
+//         if (this.x > 330 && this.x
+//           < 319 && this.y > 485 && this.y < 499){
 //
-//         //   this.x = this.x * -1;
+//           this.x = this.x  - this.speed;
 //         //   //this.speed = this.speed*-1;
-//         // }
-//         // else {
+//       //}//else {
 //         //
-//         //   this.x = this.x*1;
+//         // this.x = this.x*1;
 //         //   //this.speed = 2;
 //         // }
 //
-//            this.x = this.x + this.speed;
-//         // }else if(this.x< w - this.r){
+//           // this.x = this.x + this.speed;
+//         }else if(this.x< w - this.r){
 //         //
-//         // this.x = this.x + this.speed;
+//          this.x = this.x + this.speed;
 //       }
 //         break;
 //       case 'left':
@@ -86,21 +85,6 @@ class Player {
         this.y = this.y + this.speed;
       }
         break;
-      // case 'right':
-      //   // increasing x position
-      //   if(this.x < 340){
-      //     if(this.y < 490 || this.y > 500){
-      //     }
-      //   }else if ()
-      //   else if (this.x < w -this.r){
-      //   this.x = this.x + this.speed;
-      // }
-
-
-
-
-
-    //  use this for normal
       case 'right':
         // increasing x position
         //if (this.x < w -this.r/2){
